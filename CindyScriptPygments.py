@@ -96,7 +96,7 @@ class CindyScriptLexer(RegexLexer):
         'root': [
             (u'[ \t\n]+', Token.Text.Whitespace),
             (u'//.*', Token.Comment.Single),
-            (u'(?s)/\*.*?\*/', Token.Comment.Multiline), # TODO: Nested comments
+            (u'/\\*', Token.Comment.Multiline, 'mlc'),
             (reNumber, Token.Number),
             (reOps, Token.Operator),
             (u(r'\,|\[|\]|\(|\)|\{|\}'), Token.Punctuation),
@@ -105,5 +105,10 @@ class CindyScriptLexer(RegexLexer):
             (reName + u'(?=\s*\()', Token.Name.Function),
             (reName, Token.Name.Variable),
             (u'"[^"]*"', Token.String.Double),
-        ]
+        ],
+        'mlc': [
+            (u'/\\*', Token.Comment.Multiline, '#push'),
+            (u'\\*/', Token.Comment.Multiline, '#pop'),
+            (u'(?:[^*/]|\\*(?!/)|/(?!\\*))+', Token.Comment.Multiline),
+        ],
     }
