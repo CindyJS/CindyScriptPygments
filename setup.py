@@ -8,6 +8,7 @@ setup(
     author_email = "gagern@ma.tum.de",
     url = "https://github.com/CindyJS/CindyScriptPygments",
     py_modules = ["CindyScriptPygments"],
+    test_suite = "tests",
     entry_points = {
         "pygments.lexers": [
             "CindyScript = CindyScriptPygments:CindyScriptLexer",
