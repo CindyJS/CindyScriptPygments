@@ -12,8 +12,8 @@ else:
 
 reLetters = u("A-Za-z") # TODO: use Unicode as CindyScript parser does
 reName = u(r"(?:#(?:[ \t]*[1-9])?|['L](?:[ \t]*[0-9'L])*)").replace(u("L"), reLetters)
-reNumber = u(r"(?:[0-9](?: [0-9])*(?: \\.(?! \\.)(?: [0-9])*)?|\\.(?: [0-9])+)" +
-             r"(?: [Ee](?: [+-])?(?: [0-9])+)?").replace(u(" "), u("[ \t]"))
+reNumber = u(r"(?:[0-9](?: [0-9])*(?: \.(?! \.)(?: [0-9])*)?|\.(?: [0-9])+)" +
+             r"(?: [Ee](?: [+-])?(?: [0-9])+)?").replace(u(" "), u("[ \t]*"))
 
 # These must be sorted by decreasing string length, for longest match first
 operators = [

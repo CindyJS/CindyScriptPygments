@@ -12,14 +12,39 @@ else:
 
 class TestRegex(unittest.TestCase):
 
+    def shouldMatch(self, string, length = None):
+        string = u(string)
+        m = self.re.match(string)
+        self.assertTrue(m, 'should match ' + repr(string))
+        if length is None:
+            length = len(string)
+        self.assertEqual(length, m.end(0))
+
+    def shouldNotMatch(self, string):
+        string = u(string)
+        m = self.re.match(string)
+        self.assertFalse(m, 'should not match ' + repr(string))
+
     def test_reOps(self):
-        reOps = re.compile(C.reOps)
-        self.assertFalse(reOps.match(u''))
-        self.assertTrue(reOps.match(u'+'))
-        self.assertFalse(reOps.match(u'('))
-        self.assertTrue(reOps.match(u'|'))
-        self.assertTrue(reOps.match(u'\u2260'))
-        self.assertEqual(3, reOps.match(u'~>=').end(0))
+        self.re = re.compile(C.reOps)
+        self.shouldNotMatch(u'')
+        self.shouldMatch(u'+')
+        self.shouldNotMatch(u'(')
+        self.shouldMatch(u'|')
+        self.shouldMatch(u';')
+        self.shouldMatch(u'\u2260')
+        self.shouldMatch(u'~>=')
+
+    def test_reNumber(self):
+        self.re = re.compile(C.reNumber)
+        self.shouldMatch(u'1.2')
+        self.shouldMatch(u'1..2', 1)
+        self.shouldMatch(u'1  . . 2', 1)
+        self.shouldMatch(u'1  . * 2', 4)
+        self.shouldMatch(u'1  .   2')
+        self.shouldMatch(u'. 3')
+        self.shouldMatch(u'.  1  e  +  2')
+        self.shouldMatch(u'3  .  e  4')
 
 
 class TestCindyScriptLexer(unittest.TestCase):
@@ -78,4 +103,20 @@ class TestCindyScriptLexer(unittest.TestCase):
             (T.Comment.Multiline, u'**'),
             (T.Comment.Multiline, u'*/'),
             u'f', u'\n'
+        ])
+
+    def test_singleDot(self):
+        self.lex(u'1.*2', [
+            (T.Number, u'1.'),
+            (T.Operator, u'*'),
+            (T.Number, u'2'),
+            u'\n'
+        ])
+
+    def test_doubleDot(self):
+        self.lex(u'1..2', [
+            (T.Number, u'1'),
+            (T.Operator, u'..'),
+            (T.Number, u'2'),
+            u'\n'
         ])
