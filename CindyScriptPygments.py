@@ -92,6 +92,7 @@ class CindyScriptLexer(RegexLexer):
     name = "CindyScript"
     aliases = ["cindyscript"]
     filenames = [] # since .cs is already taken by C#
+    mimetypes = ["text/x-cindyscript"]
     tokens = {
         'root': [
             (u'[ \t\n]+', Token.Text.Whitespace),
