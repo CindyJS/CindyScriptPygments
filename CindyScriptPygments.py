@@ -18,6 +18,7 @@ reNumber = u(r"(?:[0-9](?: [0-9])*(?: \\.(?! \\.)(?: [0-9])*)?|\\.(?: [0-9])+)" 
 # These must be sorted by decreasing string length, for longest match first
 operators = [
     u"~!=",
+    u"~<=",
     u"~>=",
     u":=_",
     u"::=",
