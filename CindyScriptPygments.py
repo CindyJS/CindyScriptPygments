@@ -16,7 +16,7 @@ else:
     uchr = unichr
 
 def decompressUnicodeRanges(d, s, h):
-    utf16 = len("\U00012345") > 1
+    utf16 = len(u"\U00012345") > 1
     j = 0
     res = u"(?:[" if utf16 else u"["
     n = len(s)
