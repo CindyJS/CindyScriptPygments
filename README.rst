@@ -18,16 +18,15 @@ In theory, all you need to do is install ``Pygments`` and this package here:
 
 .. code:: sh
 
-    pip install Pygments
     pip install CindyScriptPygments
 
 This will install the latest release of each of these packages.
-(Some future version of the package will likely mention ``Pygments`` as a dependency.)
 If you don’t want to install the package system-wide, ``pip`` offers alternatives
 like the ``--user`` flag for a per-user installation.
 See ``pip install --help`` for details.
 In that case, you may have to perform additional steps in order to ensure
-that the ``pygmentize`` command line utility is available on the ``PATH``.
+that the ``pygmentize`` command line utility is available on the ``PATH``,
+at least if the ``Pygments`` dependency isn’t already installed globally.
 
 Usage
 -----
