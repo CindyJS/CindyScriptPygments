@@ -17,7 +17,8 @@ setup(
     license = "Dual license BSD 2-clause or Apache 2",
     py_modules = ["CindyScriptPygments"],
     test_suite = "tests",
-    requires = [
+    zip_safe = True,
+    install_requires = [
         "Pygments",
     ],
     entry_points = {
