@@ -23,6 +23,7 @@ setup(
     entry_points = {
         "pygments.lexers": [
             "CindyScript = CindyScriptPygments:CindyScriptLexer",
+            "CindyJsHtml = CindyScriptPygments:CindyJsHtmlLexer",
         ]
     },
     classifiers = [

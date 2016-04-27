@@ -40,9 +40,6 @@ You can use it from the command line like this:
 
     pygmentize -l cindyscript sourcecode.cs
 
-The file extension ``*.cs`` is not associated with the plugin,
-since that’s already taken by C# a.k.a. ``csharp``.
-
 To generate specific file formats, use commands like these:
 
 .. code:: sh
@@ -50,6 +47,22 @@ To generate specific file formats, use commands like these:
     pygmentize -f html -O full -l cindyscript -o sourcecode.html sourcecode.cs
     pygmentize -f tex -O full -l cindyscript -o sourcecode.tex sourcecode.cs
     pygmentize -f svg -O full -l cindyscript -o sourcecode.svg sourcecode.cs
+
+The file extension ``*.cs`` is not associated with the plugin,
+since that’s already taken by C# a.k.a. ``csharp``.
+Most often, CindyScript code is not contained in a file of its own,
+but instead embedded into a ``*.cdy`` file for Cinderella,
+or a HTML page for CindyJS.
+For the latter case, you can format the whole document using
+
+.. code:: sh
+
+    pygmentize -l CindyJS-HTML sourcecode.html
+
+This runs the HTML highlighter on the document,
+which in turn delegates to the JavaScript and CSS highlighters.
+But script blocks with the attribute ``type="text/x-cindyscript"``
+are handled by the CindyScript lexer.
 
 There exist several packages which make use of Pygments for syntax highlighting.
 Notable examples include the `minted <http://ctan.org/pkg/minted>`_ package for LaTeX

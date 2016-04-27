@@ -5,7 +5,8 @@
 
 import re
 import sys
-from pygments.lexer import RegexLexer
+from pygments.lexer import RegexLexer, bygroups, using
+from pygments.lexers import get_lexer_by_name
 from pygments.token import Token
 
 if sys.version_info[0] >= 3:
@@ -195,4 +196,27 @@ class CindyScriptLexer(RegexLexer):
             (u'\\*/', Token.Comment.Multiline, '#pop'),
             (u'(?:[^*/]|\\*(?!/)|/(?!\\*))+', Token.Comment.Multiline),
         ],
+    }
+
+
+HtmlLexer = type(get_lexer_by_name('html'))
+
+
+class CindyJsHtmlLexer(RegexLexer):
+    name = "CindyJS-HTML"
+    aliases = ["cindyjs-html", "cindyjshtml", "cindyjs_html"]
+    filenames = [] # since .html is already taken
+    flags = re.DOTALL
+    tokens = {
+        'root': [
+            (u'(.*<\\s*script[^>]*\\s'
+             u'type\\s*=\\s*["\']text/x-cindyscript[^a-z][^>]*>)'
+             u'(.*?)'
+             u'(<\\s*/\\s*script\\s*>)',
+             bygroups(using(HtmlLexer),
+                      using(CindyScriptLexer),
+                      using(HtmlLexer))
+            ),
+            (u'.+', using(HtmlLexer))
+        ]
     }
