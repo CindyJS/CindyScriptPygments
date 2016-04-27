@@ -23,12 +23,12 @@ def decompressUnicodeRanges(d, s, h):
     i = 0
     while i < n:
         c = ord(s[i])
-        if (c >= 0xd800):
+        if (c >= 0xe800):
             if utf16:
-                res += u"]|" + s[i] + u"["
+                res += u"]|" + uchr(c - 0x1000) + u"["
                 j = 0xdc00
             else:
-                j = ((c - 0xd800) << 10) + 0x10000
+                j = ((c - 0xe800) << 10) + 0x10000
         else:
             fst = j = d[c - 32] + j
             res += uchr(j)
@@ -40,18 +40,19 @@ def decompressUnicodeRanges(d, s, h):
                 res += uchr(j)
         i += 1
     if utf16:
-        res += u"]|[" + h + u"][\udc00-\udfff])"
+        h = u''.join(c if c == '-' else uchr(ord(c) - 0x1000) for c in h)
+        res += u"]|[" + h + eval(r'u"][\udc00-\udfff])"')
     else:
         n = len(h)
         i = 0
         while i < n:
             c = ord(h[i])
-            j = (c - 0xd800) << 10
+            j = (c - 0xe800) << 10
             res += uchr(j + 0x10000)
             if i + 1 < n and h[i + 1] == u"-":
                 i += 2
                 c = ord(h[i])
-                j = (c - 0xd800) << 10
+                j = (c - 0xe800) << 10
             res += u"-" + uchr(j + 0x103ff)
             i += 1
         res += u"]"
@@ -80,16 +81,16 @@ unicodeLetters = decompressUnicodeRanges([
     u"#$%6= !&!#Q+!*/1& & & & & & & &t!\x97%E$&%'V(  z #&D${:Aj2\x99\xa6q\xa9"
     u"E\xa4UZ#\x8d$2)%-8*0#_J+#b#M#(S1   # /0O2[R'$! !6>)/A?+8<!*$ .)$ D3  (-"
     u"/$!$[ !$%#$#! !4 #1+ 6'#'#'1& & 7 .)c0\xa86/'I\xa7\x93#\\N&6$&! . , $ !"
-    u" % % \x7fM\x92;R#Gh)d$ \x85=4(4,a$'#'#'# \ud800!) 4 : % 9#6@\x82\x94?$I"
-    u"IX*5 ((=)<#@'(\ud801!f~N.Of\x8f1-)(\ud802!'#! E %$!#/)/10^: %)-)4nQ(%T!"
-    u"5#   AZ?$?C( >?G)-):9*\ud803!`KJ9J\ud804#PriL3>@7M$!6F2#/! !C* 3V& ! # "
-    u"9 .+8N(#%#- & % $$!;!6$\ud805eF-% !\x8987#=F-!k7x4\ud806\x87RB!\x95K"
-    u"\ud808!\xa2\ud809e\x8a\ud80d!8\ud811!\x9c\ud81a!\x9b+0c<;F*#BH&:\ud81b"
-    u"\xa0U,!l,\ud82c!%\ud82f!\"&,$++.\ud835!w m %#!#%## ) ! & S ##( & > # $ "
-    u"!$& \x91#3 3 0 3 0 3 0 3 0 3 (\ud83a!\x8b\ud83b\x98# A % !#! . # ! !(!'"
-    u"! ! !   % !#! ! ! ! ! % !## & # # ! . 5&  $ 5\ud869!\x9f7\x8c\ud86d!"
-    u"\xa1,g\ud86e!<#\xa3\ud873!\x9e\ud87e!\x9a"
-), u"\ud80c\ud840-\ud868\ud86a-\ud86c\ud86f-\ud872")
+    u" % % \x7fM\x92;R#Gh)d$ \x85=4(4,a$'#'#'# \ue800!) 4 : % 9#6@\x82\x94?$I"
+    u"IX*5 ((=)<#@'(\ue801!f~N.Of\x8f1-)(\ue802!'#! E %$!#/)/10^: %)-)4nQ(%T!"
+    u"5#   AZ?$?C( >?G)-):9*\ue803!`KJ9J\ue804#PriL3>@7M$!6F2#/! !C* 3V& ! # "
+    u"9 .+8N(#%#- & % $$!;!6$\ue805eF-% !\x8987#=F-!k7x4\ue806\x87RB!\x95K"
+    u"\ue808!\xa2\ue809e\x8a\ue80d!8\ue811!\x9c\ue81a!\x9b+0c<;F*#BH&:\ue81b"
+    u"\xa0U,!l,\ue82c!%\ue82f!\"&,$++.\ue835!w m %#!#%## ) ! & S ##( & > # $ "
+    u"!$& \x91#3 3 0 3 0 3 0 3 0 3 (\ue83a!\x8b\ue83b\x98# A % !#! . # ! !(!'"
+    u"! ! !   % !#! ! ! ! ! % !## & # # ! . 5&  $ 5\ue869!\x9f7\x8c\ue86d!"
+    u"\xa1,g\ue86e!<#\xa3\ue873!\x9e\ue87e!\x9a"
+), u"\ue80c\ue840-\ue868\ue86a-\ue86c\ue86f-\ue872")
 
 reName = (u(r"(?:#(?:[ \t]*[1-9])?|(?:'|L)(?:[ \t]*(?:[0-9']|L))*)")
           .replace(u("L"), unicodeLetters))

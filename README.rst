@@ -63,9 +63,6 @@ It won’t support Python 3.0 through 3.2 out of the box, since it relies on Uni
 as introduced by `PEP 414`_ for Python 3.3.
 The 2to3 fixer might be able to make the code work with those versions of Python.
 
-It also doesn’t support Jython since it makes use of isolated surrogates
-for some internal data structures, which Jython doesn't support.
-
 Contrary to the current implementation of Pygments’ built-in parsers,
 this package supports unicode symbols outside the basic multilingual plane
 even on narrow (UTF-16) builds of Python 2.7.
