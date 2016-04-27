@@ -1,34 +1,12 @@
 import sys
-import unittest
 
 import CindyScriptPygments as C
 from pygments.token import Token as T
+from .LexerBase import u, LexerBase
 
-if sys.version_info[0] >= 3:
-    u = str
-else:
-    u = unicode
+class TestCindyScriptLexer(LexerBase):
 
-
-class TestCindyScriptLexer(unittest.TestCase):
-
-    def lex(self, string, expected = None):
-        lexer = C.CindyScriptLexer()
-        toks = list(lexer.get_tokens(string))
-        if expected is not None:
-            self.assertEqual(
-                len(expected), len(toks),
-                ('expected {0} tokens but got {1} tokens: {2} '
-                 .format(len(expected), len(toks),
-                         ' | '.join(v for t, v in toks))))
-            for exp, act in zip(expected, toks):
-                if act is None:
-                    pass
-                elif isinstance(exp, u):
-                    self.assertEqual(exp, act[1])
-                else:
-                    self.assertEqual(exp, act)
-        return toks
+    lexerClass = C.CindyScriptLexer
 
     def test_string(self):
         self.lex(u'some+"f//o/*o\\"+bar', [
