@@ -1,9 +1,15 @@
 #!/usr/bin/env python
 from setuptools import setup
+
+def readme():
+    with open("README.rst") as f:
+        return f.read()
+
 setup(
     name = "CindyScriptPygments",
     version = "0.2.0",
     description = "Pygments plugin for CindyScript",
+    long_description = readme(),
     author = "Martin von Gagern",
     author_email = "gagern@ma.tum.de",
     url = "https://github.com/CindyJS/CindyScriptPygments",
