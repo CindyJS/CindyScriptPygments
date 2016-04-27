@@ -7,6 +7,7 @@ setup(
     author = "Martin von Gagern",
     author_email = "gagern@ma.tum.de",
     url = "https://github.com/CindyJS/CindyScriptPygments",
+    license = "Dual license BSD 2-clause or Apache 2",
     py_modules = ["CindyScriptPygments"],
     test_suite = "tests",
     entry_points = {
@@ -18,6 +19,7 @@ setup(
         "Development Status :: 3 - Alpha",
         "Environment :: Plugins",
         "Intended Audience :: Developers",
+        "License :: OSI Approved :: BSD License",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",

@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# Copyright 2016  Martin von Gagern
+# Dual-licensed under BSD 2-clause and Apache 2 licenses,
+# see LICENSE file for details.
 
 import re
 import sys
