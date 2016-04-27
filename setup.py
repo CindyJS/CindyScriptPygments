@@ -7,9 +7,13 @@ setup(
     author = "Martin von Gagern",
     author_email = "gagern@ma.tum.de",
     url = "https://github.com/CindyJS/CindyScriptPygments",
+    download_url = "https://pypi.python.org/pypi/CindyScriptPygments#downloads",
     license = "Dual license BSD 2-clause or Apache 2",
     py_modules = ["CindyScriptPygments"],
     test_suite = "tests",
+    requires = [
+        "Pygments",
+    ],
     entry_points = {
         "pygments.lexers": [
             "CindyScript = CindyScriptPygments:CindyScriptLexer",
