@@ -9,55 +9,55 @@ class TestCindyScriptLexer(LexerBase):
     lexerClass = C.CindyScriptLexer
 
     def test_string(self):
-        self.lex(u'some+"f//o/*o\\"+bar', [
-            u'some', u'+',
+        self.lex('some+"f//o/*o\\"+bar', [
+            'some', '+',
             (T.String.Double, '"f//o/*o\\"'),
-            u'+', u'bar', u'\n'
+            '+', 'bar', '\n'
         ])
 
     def test_multiLineComment(self):
-        self.lex(u'f/*(x)//y+\ng*/(z)', [
-            u'f',
-            (T.Comment.Multiline, u'/*'),
-            (T.Comment.Multiline, u'(x)//y+\ng'),
-            (T.Comment.Multiline, u'*/'),
-            u'(', u'z', u')', u'\n'
+        self.lex('f/*(x)//y+\ng*/(z)', [
+            'f',
+            (T.Comment.Multiline, '/*'),
+            (T.Comment.Multiline, '(x)//y+\ng'),
+            (T.Comment.Multiline, '*/'),
+            '(', 'z', ')', '\n'
         ])
 
     def test_nestedMultiLineComment(self):
-        self.lex(u'a/*b/*c///*d*//e/**//*/ */*/***/f', [
-            u'a',
-            (T.Comment.Multiline, u'/*'),
-            (T.Comment.Multiline, u'b'),
-            (T.Comment.Multiline, u'/*'),
-            (T.Comment.Multiline, u'c//'),
-            (T.Comment.Multiline, u'/*'),
-            (T.Comment.Multiline, u'd'),
-            (T.Comment.Multiline, u'*/'),
-            (T.Comment.Multiline, u'/e'),
-            (T.Comment.Multiline, u'/*'),
-            (T.Comment.Multiline, u'*/'),
-            (T.Comment.Multiline, u'/*'),
-            (T.Comment.Multiline, u'/ '),
-            (T.Comment.Multiline, u'*/'),
-            (T.Comment.Multiline, u'*/'),
-            (T.Comment.Multiline, u'**'),
-            (T.Comment.Multiline, u'*/'),
-            u'f', u'\n'
+        self.lex('a/*b/*c///*d*//e/**//*/ */*/***/f', [
+            'a',
+            (T.Comment.Multiline, '/*'),
+            (T.Comment.Multiline, 'b'),
+            (T.Comment.Multiline, '/*'),
+            (T.Comment.Multiline, 'c//'),
+            (T.Comment.Multiline, '/*'),
+            (T.Comment.Multiline, 'd'),
+            (T.Comment.Multiline, '*/'),
+            (T.Comment.Multiline, '/e'),
+            (T.Comment.Multiline, '/*'),
+            (T.Comment.Multiline, '*/'),
+            (T.Comment.Multiline, '/*'),
+            (T.Comment.Multiline, '/ '),
+            (T.Comment.Multiline, '*/'),
+            (T.Comment.Multiline, '*/'),
+            (T.Comment.Multiline, '**'),
+            (T.Comment.Multiline, '*/'),
+            'f', '\n'
         ])
 
     def test_singleDot(self):
-        self.lex(u'1.*2', [
-            (T.Number, u'1.'),
-            (T.Operator, u'*'),
-            (T.Number, u'2'),
-            u'\n'
+        self.lex('1.*2', [
+            (T.Number, '1.'),
+            (T.Operator, '*'),
+            (T.Number, '2'),
+            '\n'
         ])
 
     def test_doubleDot(self):
-        self.lex(u'1..2', [
-            (T.Number, u'1'),
-            (T.Operator, u'..'),
-            (T.Number, u'2'),
-            u'\n'
+        self.lex('1..2', [
+            (T.Number, '1'),
+            (T.Operator, '..'),
+            (T.Number, '2'),
+            '\n'
         ])
