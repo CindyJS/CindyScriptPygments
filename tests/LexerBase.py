@@ -4,7 +4,7 @@ import unittest
 if sys.version_info[0] >= 3:
     u = str
 else:
-    u = unicode
+    u = str
 
 class LexerBase(unittest.TestCase):
 
@@ -14,7 +14,7 @@ class LexerBase(unittest.TestCase):
         if expected is not None:
             if len(expected) != len(toks):
                 print()
-                print(' | '.join(v for t, v in toks))
+                print((' | '.join(v for t, v in toks)))
             for exp, act in zip(expected, toks):
                 if act is None:
                     pass
